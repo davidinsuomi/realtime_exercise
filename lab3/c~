@@ -1,0 +1,18 @@
+#include<stdio.h>
+
+
+int main(){
+char  a[]="abcdefghigklmn";
+int i=0;
+setvbuf(stdout,NULL,_IOFBF,5);
+
+fwrite (a , 1 , sizeof(a) , stdout );
+
+
+    for(i=0;i<sizeof(a);i++);
+        putchar(a[i]);
+        sleep(1);
+   exit(0);
+
+}
+

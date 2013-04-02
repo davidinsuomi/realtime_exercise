@@ -1,0 +1,12 @@
+13.23. fflush()
+Process all buffered I/O for a stream right now
+
+Prototypes
+#include <stdio.h>
+int fflush(FILE *stream);
+Description
+When you do standard I/O, as mentioned in the section on the setvbuf() function, it is usually stored in a buffer until a line has been entered or the buffer is full or the file is closed. Sometimes, though, you really want the output to happen right this second, and not wait around in the buffer. You can force this to happen by calling fflush().
+
+The advantage to buffering is that the OS doesn't need to hit the disk every time you call fprintf(). The disadvantage is that if you look at the file on the disk after the fprintf() call, it might not have actually been written to yet. ("I called fputs(), but the file is still zero bytes long! Why?!") In virtually all circumstances, the advantages of buffering outweigh the disadvantages; for those other circumstances, however, use fflush().
+
+Note that fflush() is only designed to work on output streams according to the spec. What will happen if you try it on an input stream? Use your spooky voice: who knooooows!

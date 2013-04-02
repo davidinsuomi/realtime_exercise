@@ -1,0 +1,37 @@
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <stdio.h>
+#include <signal.h>
+static void alarm_handler(int);
+
+void  main(int argc, char ** argv){
+//    int fd_int;
+//    int i=0;
+//    char buffer[5]="AAAAA";
+//    sscanf(argv[1],"%d",&fd_int);
+//    for(i;i<5;i++){
+//    write(fd_int,buffer,5);
+//    sleep(1);
+//    }
+//    exit(0);
+
+            if(signal(SIGALRM,alarm_handler)==SIG_ERR)
+                fprintf(stderr,"Cannot set signal handler\n");
+        int m;
+        for(m=0;m<8;m++){
+        printf("child is working\n");
+        fflush(stdout);
+        sleep(1);}
+        printf("child terminated\n");
+    return;
+}
+    static void alarm_handler(int sig_no){
+
+        printf("Signal received");
+        fflush(stdout);
+
+        return;
+    }

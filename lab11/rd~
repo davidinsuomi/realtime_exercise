@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+
+int main(){
+int sockfd, size;
+struct sockaddr_un srv_addr, client_addr;
+char chr;
+int i=0;
+
+if((sockfd = socket(AF_UNIX,SOCK_DGRAM,0))<0)
+    perror("read sockfd error");
+
+
+srv_addr.sun_family=AF_UNIX;
+strcpy(srv_addr.sun_path,"read.sock");
+//client_addr.sun_family=AF_UNIX;
+//strcpy(client_addr.sun_path,"write");
+unlink("read.sock");
+if((bind(sockfd,(const struct sockaddr*)&srv_addr,sizeof(srv_addr)))<0)
+     perror("read bind error");
+
+    for(i=0;i<10;i++){
+        size=sizeof(client_addr);
+    if((recvfrom(sockfd, &chr, 1, 0,(struct sockaddr*)&client_addr,&size)<0))
+        perror("read receieve error");
+    write(1,&chr,1);
+    }
+sendto(sockfd,  "OK", 1 , 0,(struct sockaddr*)&client_addr, sizeof(client_addr));
+
+exit(0);
+}
+

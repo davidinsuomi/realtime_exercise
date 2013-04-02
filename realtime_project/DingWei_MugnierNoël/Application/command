@@ -1,0 +1,4 @@
+gcc -o application.exe main.c MultiSensorSimulatorVir.o -lrt
+
+
+
